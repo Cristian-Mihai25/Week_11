@@ -18,21 +18,16 @@ public class SoccerEntityAdapter extends RecyclerView.Adapter<SoccerEntityAdapte
 
     private final List<SoccerEntity> soccerEntities;
     private final Context context;
-    private final OnItemClickListener listener;
 
-    /**
-     * Interface for item click events
-     */
-    public interface OnItemClickListener {
-        void onItemClick(SoccerEntity SoccerEntity, int position);
-    }
 
-    public SoccerEntityAdapter(Context context, List<SoccerEntity> SoccerEntities, OnItemClickListener listener) {
+    public SoccerEntityAdapter(Context context, List<SoccerEntity> SoccerEntities) {
         this.context = context;
         this.soccerEntities = SoccerEntities;
-        this.listener = listener;
+
     }
 
+
+    //Implement RecyclerView
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,12 +46,7 @@ public class SoccerEntityAdapter extends RecyclerView.Adapter<SoccerEntityAdapte
         holder.tvDesc2.setText(soccerEntity.getDescription2());
         holder.tvDesc3.setText(soccerEntity.getDescription3());
 
-        // Set click listener
-        holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onItemClick(soccerEntity, holder.getAdapterPosition());
-            }
-        });
+
     }
 
     @Override
@@ -64,19 +54,14 @@ public class SoccerEntityAdapter extends RecyclerView.Adapter<SoccerEntityAdapte
         return soccerEntities.size();
     }
 
-    /**
-     * Update the adapter data
-     * @param newItems new list of items
-     */
+    //update adapter
     public void updateItems(List<SoccerEntity> newItems) {
         soccerEntities.clear();
         soccerEntities.addAll(newItems);
         notifyDataSetChanged();
     }
 
-    /**
-     * ViewHolder class for the adapter
-     */
+    //ViewHolder class
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvType, tvDesc1, tvDesc2, tvDesc3;
 

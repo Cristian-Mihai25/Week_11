@@ -43,4 +43,9 @@ public class Match implements SoccerEntity {
     public String getDescription3() {
         return "HomeTeam: " + homeTeam + "    AwayTeam: " + awayTeam +"    Stadium: " + stadium;
     }
+
+    @Override
+    public int getBirthDate() {
+        return Integer.parseInt(date.substring(0, 4));
+    }
 }

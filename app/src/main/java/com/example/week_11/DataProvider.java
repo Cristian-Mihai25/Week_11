@@ -8,6 +8,7 @@ import com.example.week_11.Interfaces.SoccerEntity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DataProvider<T extends SoccerEntity> {
 
@@ -25,6 +26,16 @@ public class DataProvider<T extends SoccerEntity> {
         return dataList.stream()
                 .filter(entity -> entity.getName().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());
+    }
+    public static List<SoccerEntity> createSample(){
+        List<Team> teams = createSampleTeams();
+        List<Player> players = createSamplePlayers();
+        List<Match> matches = createSampleMatches();
+        List<SoccerEntity> allEntities = new ArrayList<>();
+        allEntities.addAll(teams);
+        allEntities.addAll(players);
+        allEntities.addAll(matches);
+        return allEntities;
     }
     public static List<Team> createSampleTeams() {
         List<Team> teams = new ArrayList<>();

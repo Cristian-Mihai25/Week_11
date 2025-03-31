@@ -1,6 +1,10 @@
 package com.example.week_11.Container;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+
+import com.example.week_11.Interfaces.SoccerEntity;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,36 +26,22 @@ public class SoccerEntityContainer<T> implements Iterable<T> {
         this.soccerEntities = new ArrayList<>();
     }
 
-    /**
-     * Add an item to the container
-     *
-     * @param item the item to add
-     */
+    // Add item to container
     public void addItem(T item) {
         soccerEntities.add(item);
     }
 
+    // Add all items from List to container
     public void addAll(List<T> soccerEntities){
-        for (T entity : soccerEntities){
-            addItem(entity);
-
-        }
+        soccerEntities.forEach(this::addItem);
     }
 
-    /**
-     * Remove an item from the container
-     * @param item the item to remove
-     * @return true if successful
-     */
+    // Remove item from container
     public boolean removeItem(T item) {
         return soccerEntities.remove(item);
     }
 
-    /**
-     * Get item at specific index
-     * @param index the index
-     * @return the item at the index
-     */
+    // Get Item at specific index
     public T getItem(int index) {
         if (index >= 0 && index < soccerEntities.size()) {
             return soccerEntities.get(index);
@@ -59,29 +49,17 @@ public class SoccerEntityContainer<T> implements Iterable<T> {
         return null;
     }
 
-    /**
-     * Get all items in the container
-     * @return list of all items
-     */
+    // Get all items from container
     public List<T> getAllItems() {
         return new ArrayList<>(soccerEntities);
     }
 
-    /**
-     * Get the number of items in the container
-     * @return size of the container
-     */
+    // Get size of container
     public int size() {
         return soccerEntities.size();
     }
 
-    /**
-     * Filter items based on a predicate (lambda function)
-     * Demonstrates using lambda functions with generics
-     *
-     * @param predicate the filter condition
-     * @return new container with filtered items
-     */
+    // Filter items based on predicate
     public SoccerEntityContainer<T> filter(Predicate<T> predicate, String desiredText) {
         SoccerEntityContainer<T> filteredContainer = new SoccerEntityContainer<>();
 
@@ -92,34 +70,36 @@ public class SoccerEntityContainer<T> implements Iterable<T> {
 
         // Add filtered items to the new container
         filteredItems.forEach(filteredContainer::addItem);
+        if(desiredText != null && !desiredText.isEmpty()){
+            Log.d("DSA", desiredText);
+            for (T t : filteredItems){
+                if(t instanceof SoccerEntity){
+                    SoccerEntity tSoccerEntity = (SoccerEntity) t;
+                    if(!tSoccerEntity.getName().toLowerCase().contains(desiredText.toLowerCase())){
+                        filteredContainer.removeItem(t);
+                    }
 
+                }
+            }
+        }
         return filteredContainer;
     }
 
 
 
-    /**
-     * Process each item using a lambda function
-     * @param processor the lambda function to apply to each item
-     */
+    // Process items
     public void processItems(java.util.function.Consumer<T> processor) {
         soccerEntities.forEach(processor);
     }
 
-    /**
-     * Implementation of the Iterator method from Iterable interface
-     * Allows for using this container in for-each loops
-     */
+    // Implement iterator
     @NonNull
     @Override
     public Iterator<T> iterator() {
         return soccerEntities.iterator();
     }
 
-    /**
-     * Custom iterator implementation example
-     * (Using ArrayList's iterator in this case, but demonstrates the concept)
-     */
+    // Implement Custom iterator
     public class InventoryIterator implements Iterator<T> {
         private int currentIndex = 0;
 
@@ -134,11 +114,9 @@ public class SoccerEntityContainer<T> implements Iterable<T> {
         }
     }
 
-    /**
-     * Get a custom iterator (optional method showing custom iterator creation)
-     * @return custom iterator for this container
-     */
+    // Get new iterator
     public InventoryIterator getCustomIterator() {
         return new InventoryIterator();
     }
 }
+

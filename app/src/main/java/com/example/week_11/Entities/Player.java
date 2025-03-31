@@ -43,4 +43,9 @@ public class Player implements SoccerEntity {
     public String getDescription3() {
         return "Team: "+ team + "    Position: " + position;
     }
+
+    @Override
+    public int getBirthDate() {
+        return 2025-age;
+    }
 }

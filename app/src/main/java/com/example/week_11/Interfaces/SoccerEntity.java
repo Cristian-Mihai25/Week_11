@@ -10,4 +10,8 @@ public interface SoccerEntity {
     String getDescription2();
 
     String getDescription3();
+
+    int getBirthDate();
+
+
 }

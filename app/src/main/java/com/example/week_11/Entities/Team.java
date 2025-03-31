@@ -43,4 +43,11 @@ public class Team implements SoccerEntity {
     public String getDescription3() {
         return "League: " + league + "    Stadium: " + stadium;
     }
+
+    @Override
+    public int getBirthDate() {
+        return foundedYear;
+    }
+
+
 }

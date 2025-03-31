@@ -1,4 +1,4 @@
-package com.example.week_11;
+package com.example.week_11.Iterators;
 
 import com.example.week_11.Entities.Team;
 import com.example.week_11.Interfaces.CustomIterator;
@@ -21,5 +21,9 @@ public class TeamIterator implements CustomIterator<Team> {
     @Override
     public Team next() {
         return hasNext() ? teams.get(position++) : null;
+    }
+
+    public static TeamIterator getCustomIterator(List<Team> teams) {
+        return new TeamIterator(teams);
     }
 }
